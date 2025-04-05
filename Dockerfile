@@ -10,7 +10,6 @@ RUN apk add --no-cache \
     freetype-dev \
     zip \
     libxml2-dev \
-    nginx \
     supervisor \
     curl \
     shadow
@@ -40,12 +39,13 @@ RUN composer dump-autoload && composer run-script post-autoload-dump
 
 # Phân quyền thư mục storage và bootstrap/cache
 RUN usermod -u 1000 www-data && groupmod -g 1000 www-data
-RUN chown -R www-data:www-data /var/www /var/lib/nginx /var/log/nginx \
-    && chmod -R 775 /var/www/storage /var/www/bootstrap/cache /var/lib/nginx
+RUN chown -R www-data:www-data /var/www /var/www/storage /var/www/bootstrap/cache /var/log \
+    && chmod -R 775 /var/www/storage /var/www/bootstrap/cache /var/log
 
-# Cấu hình
-COPY ./docker/nginx/http.d/default.conf /etc/nginx/http.d/default.conf
-COPY ./docker/supervisord.conf /etc/supervisord.conf
+# Cấu hình supervisor
+COPY ./docker/supervisor/supervisord.conf /etc/supervisord.conf
+
+# Thiết lập các file cấu hình của PHP
 COPY ./docker/php.ini /usr/local/etc/php/conf.d/php.ini
 COPY ./docker/opcache.ini /usr/local/etc/php/conf.d/opcache.ini
 COPY ./docker/www.conf /usr/local/etc/php-fpm.d/www.conf
@@ -53,8 +53,8 @@ COPY ./docker/www.conf /usr/local/etc/php-fpm.d/www.conf
 # Chạy container với quyền www-data
 #USER www-data
 
-# Mở cổng cho PHP-FPM và Nginx
-EXPOSE 80 9000
+# Mở cổng 9000 cho PHP-FPM
+EXPOSE 9000
 
-# Lệnh khởi chạy PHP-FPM và Nginx với Supervisor
-CMD ["supervisord", "-c", "/etc/supervisord.conf"]
+# Khởi động PHP-FPM
+CMD ["/usr/bin/supervisord", "-c", "/etc/supervisord.conf"]
