@@ -16,3 +16,11 @@ $ docker exec -it laravel_base_app supervisorctl update # Cập nhật lại c�
 $ docker exec -it laravel_base_app supervisorctl restart all # Restart tất cả các process
 $ docker exec -it laravel_base_app supervisorctl restart laravel-queue # Restart process laravel-queue
 ```
+composer require laravel/passport
+```shell
+# Tạo client mới
+$ docker exec -it laravel_base_app php artisan passport:client
+
+# Tạo client để sử dụng cho password grant
+$ docker exec -it laravel_base_app php artisan passport:client --password
+```
