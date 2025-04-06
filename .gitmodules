@@ -1,0 +1,3 @@
+[submodule "packages/passport-auth"]
+	path = packages/passport-auth
+	url = https://github.com/udhuong/passport-auth
