@@ -12,7 +12,9 @@ RUN apk add --no-cache \
     libxml2-dev \
     supervisor \
     curl \
-    shadow
+    shadow \
+    dcron \
+    && rm -rf /var/cache/apk/*
 
 # Khuyên dùng cách thứ hai, vì chắc chắn hoạt động mọi Alpine PHP.
 RUN apk add --no-cache --virtual .build-deps $PHPIZE_DEPS \
@@ -56,6 +58,12 @@ COPY ./docker/supervisor/supervisord.conf /etc/supervisord.conf
 COPY ./docker/php.ini /usr/local/etc/php/conf.d/php.ini
 COPY ./docker/opcache.ini /usr/local/etc/php/conf.d/opcache.ini
 COPY ./docker/www.conf /usr/local/etc/php-fpm.d/www.conf
+
+# Thiết lập laravel-schedule
+COPY ./docker/laravel-schedule /etc/cron.d/laravel-schedule
+RUN chmod 0644 /etc/cron.d/laravel-schedule
+RUN chmod +x /usr/sbin/crond
+RUN crontab /etc/cron.d/laravel-schedule
 
 # Chạy container với quyền www-data
 #USER www-data

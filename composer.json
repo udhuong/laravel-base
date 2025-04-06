@@ -11,6 +11,7 @@
         "laravel/horizon": "^5.31",
         "laravel/passport": "^12.4",
         "laravel/socialite": "^5.19",
+        "laravel/telescope": "^5.7",
         "laravel/tinker": "^2.10.1",
         "udhuong/laravel-common": "^1.0",
         "udhuong/passport-auth": "^1.0"
