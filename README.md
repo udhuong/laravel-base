@@ -23,4 +23,11 @@ $ docker exec -it laravel_base_app php artisan passport:client
 
 # Tạo client để sử dụng cho password grant
 $ docker exec -it laravel_base_app php artisan passport:client --password
+
+$  docker exec -u www-data -it laravel_base_app php artisan vendor:publish --tag=passport-auth-config
+```
+
+```shell
+
+git submodule add https://github.com/udhuong/passport-auth packages/passport-auth
 ```
