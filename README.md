@@ -38,3 +38,7 @@ docker exec -u www-data -it laravel_base_app
 
 - php cần cài đặt ext-redis
 - composer require predis/predis
+- thêm php.ini extension=redis.so
+- sửa env REDIS_HOST=redis
+- cần ext php này để cài đặt redis: pcntl posix
+- thêm supervisor laravel-horizon.conf
