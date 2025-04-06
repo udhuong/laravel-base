@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "54706c400bbe59b82026f54f8522466b",
+    "content-hash": "994387332d6379e4f1e1fe7408d6a09f",
     "packages": [
         {
             "name": "brick/math",
@@ -6816,6 +6816,48 @@
                 "source": "https://github.com/udhuong/laravel-common/tree/v1.0.0"
             },
             "time": "2025-03-21T15:49:40+00:00"
+        },
+        {
+            "name": "udhuong/passport-auth",
+            "version": "1.0.0",
+            "dist": {
+                "type": "path",
+                "url": "packages/passport-auth",
+                "reference": "afc086869e02ec46910180d7bf5e8712551ab641"
+            },
+            "require": {
+                "laravel/framework": "^11.0|^12.0",
+                "laravel/passport": "^12.4",
+                "laravel/socialite": "^5.19",
+                "php": "^8.3",
+                "udhuong/laravel-common": "^1.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Udhuong\\PassportAuth\\PassportAuthServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Udhuong\\PassportAuth\\": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "PC",
+                    "email": "email@example.com"
+                }
+            ],
+            "description": "Laravel Passport Auth reusable package",
+            "transport-options": {
+                "relative": true
+            }
         },
         {
             "name": "vlucas/phpdotenv",

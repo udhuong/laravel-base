@@ -11,7 +11,8 @@
         "laravel/passport": "^12.4",
         "laravel/socialite": "^5.19",
         "laravel/tinker": "^2.10.1",
-        "udhuong/laravel-common": "^1.0"
+        "udhuong/laravel-common": "^1.0",
+        "udhuong/passport-auth": "^1.0"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
@@ -34,6 +35,12 @@
             "Tests\\": "tests/"
         }
     },
+    "repositories": [
+        {
+            "type": "path",
+            "url": "packages/passport-auth"
+        }
+    ],
     "scripts": {
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
