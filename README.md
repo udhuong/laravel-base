@@ -30,4 +30,11 @@ $ docker exec -u www-data -it laravel_base_app php artisan vendor:publish --tag=
 ```shell
 
 git submodule add https://github.com/udhuong/passport-auth packages/passport-auth
+
+docker exec -u www-data -it laravel_base_app 
 ```
+
+### horizon
+
+- php cần cài đặt ext-redis
+- composer require predis/predis
