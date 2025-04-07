@@ -12,11 +12,19 @@ RUN apk add --no-cache \
     libxml2-dev \
     supervisor \
     curl \
-    shadow
+    shadow \
+    dcron \
+    && rm -rf /var/cache/apk/*
+
+# Khuyên dùng cách thứ hai, vì chắc chắn hoạt động mọi Alpine PHP.
+RUN apk add --no-cache --virtual .build-deps $PHPIZE_DEPS \
+    && pecl install redis \
+    && docker-php-ext-enable redis \
+    && apk del -f .build-deps
 
 # Cài đặt các extension PHP cần thiết
-RUN docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp \
-    && docker-php-ext-install pdo pdo_mysql gd opcache
+RUN docker-php-ext-configure gd --enable-gd --with-freetype --with-jpeg --with-webp \
+    && docker-php-ext-install pdo pdo_mysql gd opcache pcntl posix
 
 # Cài đặt Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
@@ -26,6 +34,7 @@ WORKDIR /var/www
 
 # Sao chép composer.json và composer.lock trước
 COPY composer.json ./
+COPY packages ./packages
 RUN if [ -f "composer.lock" ]; then cp composer.lock .; fi
 
 # Cài đặt dependencies trước khi thêm source code
@@ -49,6 +58,12 @@ COPY ./docker/supervisor/supervisord.conf /etc/supervisord.conf
 COPY ./docker/php.ini /usr/local/etc/php/conf.d/php.ini
 COPY ./docker/opcache.ini /usr/local/etc/php/conf.d/opcache.ini
 COPY ./docker/www.conf /usr/local/etc/php-fpm.d/www.conf
+
+# Thiết lập laravel-schedule
+COPY ./docker/laravel-schedule /etc/cron.d/laravel-schedule
+RUN chmod 0644 /etc/cron.d/laravel-schedule
+RUN chmod +x /usr/sbin/crond
+RUN crontab /etc/cron.d/laravel-schedule
 
 # Chạy container với quyền www-data
 #USER www-data

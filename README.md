@@ -30,4 +30,25 @@ $ docker exec -u www-data -it laravel_base_app php artisan vendor:publish --tag=
 ```shell
 
 git submodule add https://github.com/udhuong/passport-auth packages/passport-auth
+
+docker exec -u www-data -it laravel_base_app 
 ```
+
+### horizon
+
+- php cần cài đặt ext-redis
+- composer require predis/predis
+- thêm php.ini extension=redis.so
+- sửa env REDIS_HOST=redis
+- cần ext php này để cài đặt redis: pcntl posix
+- thêm supervisor laravel-horizon.conf
+
+### telescope
+
+- nên thiết lập dưới local thôi, trên môi trường khác thì cần set bảo mật
+- tạo schedule $schedule->command('telescope:prune --hours=168')->weekly();
+- thêm cronjob server: `* * * * * cd /path/to/your/project && php artisan schedule:run >> /dev/null 2>&1`
+
+### cronjob
+
+- supervisor đang để root mới chạy được

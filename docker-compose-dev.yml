@@ -53,8 +53,24 @@ services:
     networks:
       - lb_network
 
+  redis:
+    image: redis:7.2.4
+    container_name: laravel_base_redis
+    restart: unless-stopped
+    environment:
+      #- REDIS_USER=default mặc định nó là user default
+      - REDIS_PASSWORD=admin
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    command: [ "redis-server", "--requirepass", "admin", "--appendonly", "yes" ]
+    networks:
+      - lb_network
+
 volumes:
   mysql_data:
+  redis_data:
 networks:
   lb_network:
     driver: bridge
