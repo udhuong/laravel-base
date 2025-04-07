@@ -1,5 +1,7 @@
 <?php
 
+use App\Presentation\Consoles\SendMailCommand;
+use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -14,9 +16,12 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware) {
         //
     })
-    ->withSchedule(function ($schedule) {
-        $schedule->command('telescope:prune --hours=168')->everyMinute()->withoutOverlapping();
+    ->withSchedule(function (Schedule $schedule) {
+        $schedule->command('telescope:prune --hours=168')->daily()->withoutOverlapping();
     })
+    ->withCommands([
+        SendMailCommand::class // Laravel không auto-load folder, chỉ giữ class chính xác với namespace đầy đủ
+    ])
     ->withExceptions(function (Exceptions $exceptions) {
         //
     })->create();
