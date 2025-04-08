@@ -1,3 +1,6 @@
 [submodule "packages/passport-auth"]
 	path = packages/passport-auth
 	url = https://github.com/udhuong/passport-auth
+[submodule "packages/laravel-permission"]
+	path = packages/laravel-permission
+	url = git@github.com:udhuong/laravel-permission.git
