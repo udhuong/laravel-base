@@ -14,13 +14,13 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        //
+
     })
     ->withSchedule(function (Schedule $schedule) {
         $schedule->command('telescope:prune --hours=168')->daily()->withoutOverlapping();
     })
     ->withCommands([
-        SendMailCommand::class // Laravel không auto-load folder, chỉ giữ class chính xác với namespace đầy đủ
+        SendMailCommand::class, // Laravel không auto-load folder, chỉ giữ class chính xác với namespace đầy đủ
     ])
     ->withExceptions(function (Exceptions $exceptions) {
         //

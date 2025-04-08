@@ -52,3 +52,9 @@ docker exec -u www-data -it laravel_base_app
 ### cronjob
 
 - supervisor đang để root mới chạy được
+
+### permission
+```shell
+php artisan permission:create-role admin
+php artisan permission:create-permission edit-articles
+```
