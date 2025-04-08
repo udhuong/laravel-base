@@ -1,59 +1,72 @@
+# Laravel Base Project - Quản lý Docker, Passport, Horizon, Telescope
+
+## Docker Commands
+
+### Kiểm tra cấu hình Nginx
 ```shell
-#Kiểm tra cấu hình nginx
-$ docker exec -it laravel_base_app nginx -t
-
-# Kiểm tra log lỗi
-$ docker exec -it laravel_base_app cat /var/log/supervisord.log
-$ docker exec -it laravel_base_app cat /var/log/nginx.out.log
-$ docker exec -it laravel_base_app cat /var/log/nginx.err.log
-$ docker exec -it laravel_base_app cat /var/log/php-fpm.out.log
-$ docker exec -it laravel_base_app cat /var/log/php-fpm.err.log
-
-
-$ docker exec -it laravel_base_app supervisorctl status
-$ docker exec -it laravel_base_app supervisorctl reread # Đọc lại cấu hình mới
-$ docker exec -it laravel_base_app supervisorctl update # Cập nhật lại cấu hình
-$ docker exec -it laravel_base_app supervisorctl restart all # Restart tất cả các process
-$ docker exec -it laravel_base_app supervisorctl restart laravel-queue # Restart process laravel-queue
+docker exec -it laravel_base_app nginx -t
 ```
+
+### Kiểm tra logs
+```shell
+docker exec -it laravel_base_app cat /var/log/supervisord.log
+docker exec -it laravel_base_app cat /var/log/nginx.out.log
+docker exec -it laravel_base_app cat /var/log/nginx.err.log
+docker exec -it laravel_base_app cat /var/log/php-fpm.out.log
+docker exec -it laravel_base_app cat /var/log/php-fpm.err.log
+```
+
+### Supervisor
+```shell
+docker exec -it laravel_base_app supervisorctl status
+docker exec -it laravel_base_app supervisorctl reread       # Đọc lại cấu hình mới
+docker exec -it laravel_base_app supervisorctl update       # Cập nhật lại cấu hình
+docker exec -it laravel_base_app supervisorctl restart all  # Restart tất cả các process
+docker exec -it laravel_base_app supervisorctl restart laravel-queue # Restart process queue
+```
+
+## Laravel Passport
+
+Cài đặt Passport:
+```shell
 composer require laravel/passport
-```shell
-# Tạo client mới
-$ docker exec -it laravel_base_app php artisan passport:client
-
-# Tạo client để sử dụng cho password grant
-$ docker exec -it laravel_base_app php artisan passport:client --password
-
-$ docker exec -u www-data -it laravel_base_app php artisan vendor:publish --tag=passport-auth-config
+docker exec -it laravel_base_app php artisan passport:client
+docker exec -it laravel_base_app php artisan passport:client --password
+docker exec -u www-data -it laravel_base_app php artisan vendor:publish --tag=passport-auth-config
 ```
 
+Clone package custom Passport:
 ```shell
-
 git submodule add https://github.com/udhuong/passport-auth packages/passport-auth
-
-docker exec -u www-data -it laravel_base_app 
+docker exec -u www-data -it laravel_base_app
 ```
 
-### horizon
+## Laravel Horizon
 
-- php cần cài đặt ext-redis
-- composer require predis/predis
-- thêm php.ini extension=redis.so
-- sửa env REDIS_HOST=redis
-- cần ext php này để cài đặt redis: pcntl posix
-- thêm supervisor laravel-horizon.conf
+Yêu cầu:
+- PHP cài đặt ext-redis, pcntl, posix
+- Composer package: predis/predis
+- .env: REDIS_HOST=redis
+- Thêm file cấu hình supervisor laravel-horizon.conf
 
-### telescope
+## Laravel Telescope
 
-- nên thiết lập dưới local thôi, trên môi trường khác thì cần set bảo mật
-- tạo schedule $schedule->command('telescope:prune --hours=168')->weekly();
-- thêm cronjob server: `* * * * * cd /path/to/your/project && php artisan schedule:run >> /dev/null 2>&1`
+Khuyến nghị:
+- Sử dụng cho môi trường local hoặc thêm bảo mật khi dùng trên môi trường production.
+- Thêm vào schedule:
+php artisan schedule:run
 
-### cronjob
+- Cronjob server:
+```shell
+* * * * * cd /path/to/your/project && php artisan schedule:run >> /dev/null 2>&1
+```
 
-- supervisor đang để root mới chạy được
+## Cronjob
 
-### permission
+Hiện tại, Supervisor đang chạy dưới quyền root để chạy được cronjob.
+
+## Laravel Permission Commands
+
 ```shell
 php artisan permission:create-role admin
 php artisan permission:create-permission edit-articles
