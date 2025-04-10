@@ -10,6 +10,6 @@ return [
         'client_credentials' => [
             'client_id' => env('PASSPORT_CLIENT_CREDENTIALS_CLIENT_ID'),
             'client_secret' => env('PASSPORT_CLIENT_CREDENTIALS_CLIENT_SECRET'),
-        ]
-    ]
+        ],
+    ],
 ];
