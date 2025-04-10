@@ -9,12 +9,26 @@ use Udhuong\Uploader\Domain\Entity\Media;
 class MediaRepositoryImpl implements MediaRepository
 {
     /**
-     * @param Media[] $medias
-     * @return void
+     * @param Media $media
+     * @return int
      */
-    public function saveMany(array $medias): void
+    public function save(Media $media): int
     {
-        // TODO: Implement saveMany() method.
+        $insertData = [
+            'user_id' => $media->userId,
+            'type' => $media->type,
+            'original_name' => $media->originalName,
+            'name' => $media->name,
+            'path' => $media->path,
+            'mime_type' => $media->mimeType,
+            'extension' => $media->extension,
+            'size' => $media->size,
+            'width' => $media->width,
+            'height' => $media->height,
+            'duration' => $media->duration,
+            'disk' => $media->disk,
+        ];
+        return \DB::table('medias')->insertGetId($insertData);
     }
 
     /**

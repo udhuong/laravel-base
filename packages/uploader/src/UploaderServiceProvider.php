@@ -3,8 +3,8 @@
 namespace Udhuong\Uploader;
 
 use Illuminate\Support\ServiceProvider;
-use Udhuong\Uploader\Application\Services\UploadService;
 use Udhuong\Uploader\Domain\Contracts\MediaRepository;
+use Udhuong\Uploader\Infrastructure\File\UploadService;
 use Udhuong\Uploader\Infrastructure\Repositories\MediaRepositoryImpl;
 use Udhuong\Uploader\Presentation\Consoles\UploadFileCommand;
 
@@ -19,8 +19,8 @@ class UploaderServiceProvider extends ServiceProvider
 
         $this->app->singleton('upload', function () {
             $uploadService = new UploadService();
-            $uploadService->setDirectory(config('uploader.directory'));
-            $uploadService->setDisk(config('uploader.disk'));
+            $uploadService->directory(config('uploader.directory'));
+            $uploadService->disk(config('uploader.disk'));
             return $uploadService;
         });
     }

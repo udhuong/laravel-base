@@ -3,7 +3,7 @@
 namespace Udhuong\Uploader\Presentation\Consoles;
 
 use Illuminate\Console\Command;
-use Udhuong\Uploader\Facades\Upload;
+use Udhuong\Uploader\Presentation\Facades\Upload;
 
 class UploadFileCommand  extends Command
 {
