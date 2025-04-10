@@ -4,8 +4,9 @@ namespace Udhuong\Uploader;
 
 use Illuminate\Support\ServiceProvider;
 use Udhuong\Uploader\Application\Services\UploadService;
+use Udhuong\Uploader\Domain\Contracts\MediaRepository;
+use Udhuong\Uploader\Infrastructure\Repositories\MediaRepositoryImpl;
 use Udhuong\Uploader\Presentation\Consoles\UploadFileCommand;
-use Udhuong\Uploader\Facades\Upload;
 
 class UploaderServiceProvider extends ServiceProvider
 {
@@ -17,17 +18,27 @@ class UploaderServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(__DIR__ . '/../config/uploader.php', 'uploader');
 
         $this->app->singleton('upload', function () {
-            return new UploadService();
+            $uploadService = new UploadService();
+            $uploadService->setDirectory(config('uploader.directory'));
+            $uploadService->setDisk(config('uploader.disk'));
+            return $uploadService;
         });
     }
 
     public function boot()
     {
+        $this->registerRepository();
         $this->loadRoutesFrom(__DIR__ . '/../routes/api.php');
+        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
 
         $this->publishes([
             __DIR__ . '/../config/uploader.php' => config_path('uploader.php'),
             __DIR__ . '/../../../storage/app/public' => storage_path('app/public'),
         ], 'uploader');
+    }
+
+    private function registerRepository(): void
+    {
+        $this->app->bind(MediaRepository::class, MediaRepositoryImpl::class);
     }
 }

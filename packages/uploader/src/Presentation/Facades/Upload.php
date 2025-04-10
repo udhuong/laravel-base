@@ -1,6 +1,6 @@
 <?php
 
-namespace Udhuong\Uploader\Facades;
+namespace Udhuong\Uploader\Presentation\Facades;
 
 use Illuminate\Support\Facades\Facade;
 

@@ -27,9 +27,7 @@ class UploadFileCommand  extends Command
     public function handle(): void
     {
         $url = $this->option('url');
-        Upload::uploadFromUrl($url);
+        Upload::uploadSinkFromUrl($url);
         $this->info('File uploaded successfully');
     }
-
-    // $url
 }

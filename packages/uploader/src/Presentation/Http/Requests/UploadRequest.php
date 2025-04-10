@@ -9,8 +9,10 @@ class UploadRequest extends ApiRequest
     public function rules(): array
     {
         return [
-            'files' => 'required|array|min:1|max:5',
+            'files' => 'nullable|array|min:1|max:5',
             'files.*' => 'required|file|max:' . config('uploader.max_file_size', 1024 * 1024 * 10),
+            'urls' => 'nullable|array|min:1|max:5|distinct',
+            'urls.*' => 'required|url',
         ];
     }
 }
