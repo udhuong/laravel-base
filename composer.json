@@ -17,7 +17,8 @@
         "spatie/laravel-permission": "^6.16",
         "udhuong/laravel-common": "^1.0",
         "udhuong/laravel-permission": "^1.0",
-        "udhuong/passport-auth": "^1.0"
+        "udhuong/passport-auth": "^1.0",
+        "udhuong/uploader": "^1.0"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
@@ -53,6 +54,10 @@
         {
             "type": "path",
             "url": "packages/laravel-permission"
+        },
+        {
+            "type": "path",
+            "url": "packages/uploader"
         }
     ],
     "scripts": {

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9bcb485a2c7f21a905331fcb322c7825",
+    "content-hash": "9fb34b0fee1d0bd8141d68d129ca3006",
     "packages": [
         {
             "name": "brick/math",
@@ -7129,6 +7129,48 @@
                 }
             ],
             "description": "Laravel Passport Auth reusable package",
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
+            "name": "udhuong/uploader",
+            "version": "1.0.0",
+            "dist": {
+                "type": "path",
+                "url": "packages/uploader",
+                "reference": "d52709ca186a3195c1f78346256ba983a67f036a"
+            },
+            "require": {
+                "laravel/framework": "^11.0|^12.0",
+                "laravel/passport": "^12.4",
+                "laravel/socialite": "^5.19",
+                "php": "^8.3",
+                "udhuong/laravel-common": "^1.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Udhuong\\Uploader\\UploaderServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Udhuong\\Uploader\\": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "udhuong",
+                    "email": "ungdinhhuong@gmail.com"
+                }
+            ],
+            "description": "Laravel Uploader reusable package",
             "transport-options": {
                 "relative": true
             }
