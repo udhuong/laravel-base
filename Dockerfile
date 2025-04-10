@@ -14,6 +14,7 @@ RUN apk add --no-cache \
     curl \
     shadow \
     dcron \
+    ffmpeg \
     && rm -rf /var/cache/apk/*
 
 # Khuyên dùng cách thứ hai, vì chắc chắn hoạt động mọi Alpine PHP.

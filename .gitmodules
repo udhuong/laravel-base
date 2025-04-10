@@ -4,3 +4,6 @@
 [submodule "packages/laravel-permission"]
 	path = packages/laravel-permission
 	url = git@github.com:udhuong/laravel-permission.git
+[submodule "packages/uploader"]
+	path = packages/uploader
+	url = git@github.com:udhuong/uploader.git
