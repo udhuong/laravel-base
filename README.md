@@ -76,6 +76,6 @@ php artisan permission:create-permission edit-articles
 $ docker exec -u www-data -it laravel_base_app composer require --dev friendsofphp/php-cs-fixer
 $ docker exec -u www-data -it laravel_base_app composer require --dev overtrue/phplint
 # Format code cho chuẩn. Hoặc cài thủ công qua
-$ docker exec -u www-data -it laravel_base_app vendor/bin/pint
+$ docker exec -u www-data -it laravel_base_app vendor/bin/pint 
 $ docker exec -u www-data -it laravel_base_app vendor/bin/phplint
 ```
